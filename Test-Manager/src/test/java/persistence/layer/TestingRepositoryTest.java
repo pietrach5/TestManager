@@ -1,34 +1,39 @@
 package persistence.layer;
 
-import persistenceLayer.TestingRepository;
-import org.junit.Test;
-
-import org.junit.Ignore;
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
 import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.junit.Before;
+import org.junit.Test;
+
+import persistenceLayer.TestEntity;
+import persistenceLayer.TestingRepository;
 
 public class TestingRepositoryTest {
 	
-	private static final Logger logger = LogManager.getLogger(TestingRepositoryTest.class);  
-	TestingRepository service=null;
+	TestingRepository repository=null;
 	
 	@Before
     public void init() {
-        service=new TestingRepository();
+		repository=new TestingRepository();
         BasicConfigurator.configure();  
     }
 
+	
 	@Test
-	public void ifTestStatusChanged() {	
-		logger.info("Hello world");  	
+	public void shouldDisplayTest() {	
+	   repository.addTest("Test-Test");
+	   List<TestEntity>result = repository.findTests();
+	   assertEquals(0, 0);     
+	}
+	
+	@Test
+	public void shouldChangeTestSTatus() {	
 	   String message = "Robert";	
 	   TestingRepository messageUtil = new TestingRepository();
 	   
-	      System.out.println("Inside testPrintMessage()");    
 	      assertEquals(0, 0);     
-	   }
+	}
 }

@@ -45,7 +45,7 @@ public class TestingService {
 	public List<TestEntity> displayTest() {
 		List<TestEntity> result = new ArrayList<TestEntity>();
 		List<TestEntity> entities;
-		entities = testingRepository.displayTest();
+		entities = testingRepository.findTests();
 		for (TestEntity entity : entities) {
 			result.add(entity);
 		}
@@ -55,7 +55,7 @@ public class TestingService {
 	public List<String> displayTestStatuses() {
 		List<String> result = new ArrayList<String>();
 		List<TestEntity> entities;
-		entities = testingRepository.displayTest();
+		entities = testingRepository.findTests();
 		for (TestEntity entity : entities) {
 			result.add(entity.getTestStatus());
 		}

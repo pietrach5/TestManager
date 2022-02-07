@@ -45,7 +45,7 @@ public class TestingRepository {
 	}
 	
 	public TestEntity changeTestStatus(int number, ExecutionStatus newStatus) {
-		TestEntity testEntity = displayTest().get(number);
+		TestEntity testEntity = findTests().get(number);
 		testEntity.setTestStatus(newStatus.toString());
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -60,7 +60,7 @@ public class TestingRepository {
 		return testEntity;
 	}
 	
-	public List < TestEntity > displayTest() {
+	public List < TestEntity > findTests() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             List < TestEntity > students = session.createQuery("from TestEntity", TestEntity.class).list();
             return students;
