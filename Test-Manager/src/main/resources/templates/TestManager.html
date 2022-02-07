@@ -7,135 +7,41 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 
-<script type="text/javascript">
-function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
-}
-
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-
-</script>
 <style>
-
-.button {
-  border: 2px solid black;
-  background-color: white;
-  color: blue;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
-
-.arrow {
-  border: solid black;
-  border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 3px;
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-}
-
- /* Dropdown Button */
-.dropbtn {
-  background-color: white;
-  color: black;
-  padding: 16px;
-  font-size: 16px;
-  border: 2px solid black;
-  cursor: pointer;
-}
-
-/* Dropdown button on hover & focus */
-.dropbtn:hover, .dropbtn:focus {
-  background-color: #2980B9;
-}
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd}
-
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-.show {display:block;} 
-
+	.button {
+	  border: 2px solid black;
+	  background-color: white;
+	  color: blue;
+	  padding: 15px 32px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 16px;
+	  margin: 4px 2px;
+	  cursor: pointer;
+	}
+	
+	td::before {
+	  content:"   ";
+	}
 </style>
 
-    <button class="button" type="button" th:onclick="|window.location.href='/addTest'|">
-	Create a new test</button>
+<button class="button" type="button" th:onclick="|window.location.href='/addTest'|">
+Create a new test</button>
 
+	<br><br><br>
 
-<script>
-/* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
-function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
-}
-
-// Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-
-<br><br><br>
-
-<table>
-<tr th:each="x:${sometests}">
-<td th:text=${x.testName}>Id</td>
-<td>
-<select class="dropdown" name="hall" id="hall" value="3">
-  <option th:onclick="|window.location.href='/changeTest?number=5&newStatus=passed'|">Passed</option>
-  <option selected="selected"  th:onclick="|window.location.href='/changeTest?number=5&newStatus=undefined''|">Undefined</option>
-  <option  th:onclick="|window.location.href='/changeTest?number=5&newStatus=failed''|">Failed</option>
-</select>
-</td>
-</tr>
-</table>
+	<table>
+		<tr th:each="test:${sometests}">
+			<td th:text=${test.testName}>test</td>
+			<td th:with="mycounter=${counter.incrementAndGet()}">
+				<select class="dropdown" name="hall" id="hall" value="3">
+				  <option th:onclick="|window.location.href='/changeTest?newStatus=passed&number='+'${counter.get()}'|">Passed</option>
+				  <option selected="selected"  th:onclick="|window.location.href='/changeTest?newStatus=undefined&number='+'${counter.get()}'|">Undefined</option>
+				  <option  th:onclick="|window.location.href='/changeTest?newStatus=failed&number='+'${counter.get()}'|">Failed</option>
+				</select>
+			</td>
+		</tr>
+	</table>
 </html>
 </body>

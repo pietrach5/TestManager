@@ -63,7 +63,6 @@ public class TestingRepository {
 	public List < TestEntity > displayTest() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             List < TestEntity > students = session.createQuery("from TestEntity", TestEntity.class).list();
-            students.forEach(s -> System.out.println(s.getTestName()));
             return students;
         } catch (Exception e) {
             if (transaction != null) {

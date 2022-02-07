@@ -26,20 +26,16 @@ public class TestingController {
 
 	@RequestMapping("/test")
 	public String display2(Model model) {
+		model.addAttribute("counter", new Counter());
 		List<TestEntity> sometests = null;
 		sometests = service.displayTest();
 		model.addAttribute("sometests", sometests);
 		return "TestManager";
 	}
-	
-	/*@RequestMapping(value ="/addTest", method=RequestMethod.POST)
-	public String addTest() {
-		service.addTest();
-		return "redirect/:test";
-	}*/
 	
 	@RequestMapping(value ="/addTest")
 	public String addTest(Model model) {
+		model.addAttribute("counter", new Counter());
 		service.addTest();
 		List<TestEntity> sometests = null;
 		sometests = service.displayTest();
@@ -47,9 +43,13 @@ public class TestingController {
 		return "TestManager";
 	}
 	
-	@RequestMapping(value ="/changeTestStatus")
-	public String changeTestStatus(@RequestParam("number") String number, @RequestParam("newStatus") String newStatus) {
+	@RequestMapping(value ="/changeTest")
+	public String changeTestStatus(@RequestParam("newStatus") String newStatus, @RequestParam("number") String number, Model model) {
+		model.addAttribute("counter", new Counter());
 		service.changeTestStatus(Integer.valueOf(number), newStatus);
+		List<TestEntity> sometests = null;
+		sometests = service.displayTest();
+		model.addAttribute("sometests", sometests);
 		return "TestManager";
 	}
 }
